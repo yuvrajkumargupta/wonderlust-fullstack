@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top custom-navbar">
+  <div class="container-fluid">
+
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold text-danger d-flex align-items-center" href="/listings">
+      <i class="fa-regular fa-compass me-2"></i> WanderStay
+    </a>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links + Search + Actions -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <!-- Left Nav -->
+      <div class="navbar-nav">
+        <a class="nav-link fw-semibold" href="/listings"><i class="fa-solid fa-globe me-1"></i> Explore</a>
+      </div>
+
+      <!-- 🔎 Search Bar Center -->
+      <form class="d-flex mx-auto search-bar">
+        <input class="form-control border-0 shadow-none" type="search" placeholder="Where to?" aria-label="Search">
+        <button class="btn btn-danger rounded-circle" type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+
+      <!-- Right Nav -->
+      <div class="navbar-nav ms-auto align-items-center">
+
+        <!-- Host button -->
+        <a class="btn btn-outline-danger rounded-pill px-3 me-3 fw-semibold hover-btn" href="/listings/new">
+          <i class="fa-solid fa-house-user me-1"></i> Host Your Place
+        </a>
+
+        <% if(!currUser) { %>
+          <!-- If user is NOT logged in -->
+          <a class="nav-link fw-semibold" href="/signup"><i class="fa-solid fa-user-plus me-1"></i> Sign up</a>
+          <a class="btn btn-danger rounded-pill px-3 ms-2 fw-semibold hover-btn" href="/login">
+            <i class="fa-solid fa-right-to-bracket me-1"></i> Log in
+          </a>
+        <% } %>
+
+        <% if(currUser) { %>
+          <!-- If user IS logged in -->
+          <span class="nav-link text-muted">Hi, <%= currUser.username %> 👋</span>
+          <a class="btn btn-outline-dark rounded-pill px-3 fw-semibold hover-btn" href="/logout">
+            <i class="fa-solid fa-right-from-bracket me-1"></i> Log out
+          </a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,409 @@
+/* Body and Layout */
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
+/* Navbar */
+.navbar {
+    height: 6rem;
+    background-color: aliceblue;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: rgb(223, 27, 27) !important;
+}
+
+.fa-compass {
+    color: rgb(223, 27, 27);
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: rgb(223, 27, 27) !important;
+}
+
+.nav-link.fw-semibold {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link.fw-semibold:hover {
+    color: #e30404;
+}
+
+.nav-link.fw-semibold::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0%;
+    height: 2px;
+    background-color: #f90d39;
+    transition: width 0.3s ease;
+}
+
+.nav-link.fw-semibold:hover::after {
+    width: 100%;
+}
+
+/* Footer */
+footer {
+    background: #3e3e3e;
+    color: #ccc;
+    padding: 30px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.f-info {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.f-info-socials i {
+    font-size: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+    color: #b9b7b7;
+    transition: color 0.3s;
+}
+
+.f-info-socials i:hover {
+    color: #ff9800;
+}
+
+.f-info-links {
+    margin-top: 15px;
+}
+
+.f-info-links a {
+    margin: 0 12px;
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.f-info-links a:hover {
+    color: #ff9800;
+}
+
+footer div {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Cards */
+/* Card Container */
+/* Listing Card */
+.listing-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Image Container */
+.card-img-top {
+    width: 100%;
+    height: 200px; /* fixed height for consistency */
+    object-fit: cover; /* maintain aspect ratio */
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.listing-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* Card Body */
+.card-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Title and Price */
+.card-text b {
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.4rem;
+    color: #222;
+}
+
+.card-text {
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Tax Info */
+.tax-info {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 0.2rem;
+}
+
+/* Owner and Location */
+.card-owner {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+}
+
+.card-location {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.2rem;
+}
+
+/* Optional Hover Overlay */
+.card-img-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: rgba(255,255,255,0.1);
+    transition: opacity 0.3s ease;
+}
+
+.listing-card:hover .card-img-overlay {
+    opacity: 1;
+}
+
+
+.add-btn {
+    background-color: rgb(217, 67, 67);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.add-btn:hover {
+    background-color: rgb(190, 50, 50);
+}
+
+.add-btn:active {
+    background-color: rgb(160, 40, 40);
+    transform: translateY(1px);
+}
+
+.add-btn:focus {
+    outline: 2px solid rgb(255, 220, 220);
+    outline-offset: 2px;
+}
+
+/* Listing Details Page */
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    border-bottom: 3px solid #e74c3c;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.listing-image {
+    height: 320px;
+    object-fit: cover;
+}
+
+.action-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.action-buttons .btn {
+    margin: 0 8px;
+    border-radius: 8px;
+    padding: 8px 18px;
+    transition: background 0.2s ease-in-out;
+}
+
+.action-buttons .btn-warning:hover {
+    background-color: #f39c12;
+    color: #fff;
+}
+
+.action-buttons .btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.action-buttons .btn-secondary:hover {
+    background-color: #34495e;
+    color: #fff;
+}
+
+/* Map */
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Filters - Horizontal Scroll + Arrows + Tax Toggle */
+.filters-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    max-width: 900px; /* container width */
+    margin: 20px auto;
+    gap: 0.5rem;
+}
+
+.filters-scroll {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    flex: 1;
+}
+
+.filters-scroll .filter {
+    flex: 0 0 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.filters-scroll .filter i {
+    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+    color: #444;
+}
+
+.filters-scroll .filter p {
+    font-size: 0.8rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+.filters-scroll .filter:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+    color: #e30404;
+}
+
+.scroll-btn {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+.scroll-btn:hover {
+    background: #e30404;
+    color: #fff;
+}
+
+/* Tax toggle styling */
+.tax-toggle {
+    flex-shrink: 0;      /* don't shrink */
+    margin-left: auto;    /* push to far right */
+    border: 1px solid #ccc;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    padding: 0.4rem 0.8rem;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    white-space: nowrap;
+}
+
+.tax-toggle .form-check-label {
+    margin-left: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+}
+
+
+
+
+/* Search bar */
+.search-bar {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    flex: 1;
+    font-size: 15px;
+    padding-left: 10px;
+    border-radius: 50px;
+}
+
+.search-bar button {
+    background: #ff385c;
+    color: #fff;
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Optional: hide scroll bar for all browsers */
+.filters-scroll::-webkit-scrollbar {
+    display: none;
+}
+.filters-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
