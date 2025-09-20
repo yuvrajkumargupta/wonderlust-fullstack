@@ -55,7 +55,6 @@ const store=MongoStore.create({
     mongoUrl:dbUrl,
     crypto: {
         secret : process.env.SECRET,
-   
   },
    touchAfter: 24 * 3600, 
 })
@@ -68,11 +67,12 @@ const sessionOptions={
     secret : process.env.SECRET,
     resave  : false,
       saveUninitialized: false,
-     cookie : {
-    exprires : Date.now() + 7*24 *60*60*1000,
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  httpOnly: true
-     }
+cookie: {
+    expires: Date.now() + 7*24*60*60*1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true
+}
+
 }
 // // Root route
 // app.get("/", (req, res) => {
