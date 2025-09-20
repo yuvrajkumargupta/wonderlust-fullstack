@@ -1,7 +1,7 @@
- if (process.env.NODE_ENV !== "production") {
- require("dotenv").config();
- }
- console.log(process.env.SECRET);
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 
 
 
@@ -136,6 +136,8 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(8080, () => {
-    console.log(" Server is listening on port 8080");
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
 });
+
