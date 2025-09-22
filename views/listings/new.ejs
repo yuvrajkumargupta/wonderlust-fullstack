@@ -1,9 +1,8 @@
 <% layout("/layouts/boilerplate") %>
 
-
 <div class="container mt-4">
-  <div class="col-8 offset-1">
-    <h3>Create New Listing</h3>
+  <div class="col-8 offset-2 create-listing-form">
+    <h3 class="mb-4">Drop Your Treasure.....</h3>
 
     <form method="POST" 
           action="/listings" 
@@ -21,7 +20,7 @@
       <!-- Description -->
       <div class="mb-3">
         <label for="description" class="form-label">Description:</label>
-        <textarea id="description" name="listing[description]" class="form-control" placeholder="Enter description" rows="3" required></textarea>
+        <textarea id="description" name="listing[description]" class="form-control" placeholder="Enter description" rows="4" required></textarea>
         <div class="invalid-feedback">Please enter a description.</div>
       </div>
 
@@ -47,28 +46,6 @@
         <div class="invalid-feedback">Please provide a valid location.</div>
       </div>
 
-      <!-- Category Selection -->
-      <!-- <div class="category-select">
-        <label for="category">Select Category:</label>
-        <select id="category" name="listing[category]" required>
-          <option value="">Choose a category</option>
-          <option value="Trending">Trending</option>
-          <option value="Rooms">Rooms</option>
-          <option value="Beach">Beach</option>
-          <option value="Mountains">Mountains</option>
-          <option value="Cabins">Cabins</option>
-          <option value="City">City</option>
-          <option value="Camping">Camping</option>
-          <option value="Pools">Pools</option>
-          <option value="Pet Friendly">Pet Friendly</option>
-          <option value="Villas">Villas</option>
-          <option value="Castles">Castles</option>
-          <option value="Tiny Homes">Tiny Homes</option>
-          <option value="Unique Stays">Unique Stays</option>
-        </select>
-        <div class="invalid-feedback">Please select a category.</div>
-      </div> -->
-
       <!-- Image Upload -->
       <div class="mb-3">
         <label for="image" class="form-label">Upload Listing Image</label>
@@ -77,7 +54,7 @@
       </div>
 
       <!-- Submit Button -->
-      <button class="btn btn-primary" type="submit">Create Listing</button>
+      <button class=" btn-create" type="submit">Showcase It</button>
     </form>
   </div>
 </div>

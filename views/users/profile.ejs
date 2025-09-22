@@ -1,0 +1,17 @@
+<% layout("layouts/boilerplate") %>
+<div class="profile-card">
+
+  <div class="profile-header">
+    <h2><%= user.username %></h2>
+  </div>
+  <!-- Profile Details -->
+  <div class="profile-details">
+    <p><strong>Email:</strong> <%= user.email %></p>
+  </div>
+
+  <!-- Edit / Logout Buttons -->
+  <div class="profile-actions">
+    <a href="#" class="btn-create">Edit Profile</a>
+    <a href="/logout" class="btn-danger">Logout</a>
+  </div>
+</div>

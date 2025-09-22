@@ -4,27 +4,22 @@ module.exports.renderSignupForm=(req, res) => {
     res.render("users/signup.ejs");
 };
 
-module.exports.signup= async(req, res) => {
+module.exports.signup = async(req, res, next) => { // 'next' is important
     try {
         let { username, email, password } = req.body;
-
         const newUser = new User({ email, username });
         const registeredUser = await User.register(newUser, password);
 
-        console.log(registeredUser);
-        req.login(registeredUser, (err)=>{
-            if(err){
+        req.login(registeredUser, (err) => {
+            if (err) {
                 return next(err);
             }
-        req.flash("success", "Welcome to Wanderlust!");
-
-      return   res.redirect("/listings");
-        })
-
-       
+            req.flash("success", "Welcome to Wanderlust!");
+            res.redirect("/listings");
+        });
     } catch (err) {
         req.flash("error", err.message);
-     return    res.redirect("/signup");
+        res.redirect("/signup");
     }
 };
 
@@ -52,3 +47,5 @@ module.exports.logout= (req, res, next) => {
         res.redirect("/login");
     });
 };
+
+

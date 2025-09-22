@@ -24,4 +24,8 @@ router.route("/login")
 
 router.get("/logout",userController.logout);
 
+// router.get('/profile', wrapAsync(userController.renderProfile));
+
+
+
 module.exports = router;
