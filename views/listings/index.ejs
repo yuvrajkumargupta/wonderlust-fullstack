@@ -1,84 +1,81 @@
 <% layout("/layouts/boilerplate") %>
 
-  <!-- Main Search & Filter Container -->
+  <!-- Main Container -->
   <div class="container-fluid px-4 mt-3">
 
-    <!-- Main Search Bar (Visible primarily on Home) -->
-    <div class="search-container-main">
-      <form action="/listings" method="GET" class="search-bar-main">
-        <label for="main-search" class="ms-3 me-2"><i class="fa-solid fa-magnifying-glass text-secondary"></i></label>
-        <input type="text" id="main-search" name="search" placeholder="Search destinations, villas, castles..."
-          value="<%= typeof search !== 'undefined' ? search : '' %>">
-        <button type="submit" class="search-btn-main"><i class="fa-solid fa-arrow-right"></i></button>
-      </form>
-    </div>
+    <!-- Filters & Tax Toggle Ribbon -->
+    <!-- "Ribbon" Bar: Categories on left/center, Tax Toggle on right -->
+    <div class="filters-main-container d-flex align-items-center justify-content-between mb-4">
 
-    <!-- Category Filters -->
-    <div id="filters" class="filters-wrapper d-flex align-items-center justify-content-center">
-      <button class="scroll-btn left-btn d-none d-md-flex me-2" onclick="scrollFilters(-1)"><i
-          class="fa-solid fa-angle-left"></i></button>
+      <!-- Scrollable Categories -->
+      <div id="filters" class="filters-wrapper d-flex align-items-center">
+        <button class="scroll-btn left-btn d-none d-md-flex me-2 shadow-sm" onclick="scrollFilters(-1)"><i
+            class="fa-solid fa-angle-left"></i></button>
 
-      <div class="filters-scroll" id="filtersScroll">
-        <a href="/listings?category=Trending" class="filter"><i class="fa-solid fa-fire"></i>
-          <p>Trending</p>
-        </a>
-        <a href="/listings?category=Rooms" class="filter"><i class="fa-solid fa-bed"></i>
-          <p>Rooms</p>
-        </a>
-        <a href="/listings?category=Beach" class="filter"><i class="fa-solid fa-umbrella-beach"></i>
-          <p>Beach</p>
-        </a>
-        <a href="/listings?category=Mountains" class="filter"><i class="fa-solid fa-mountain-sun"></i>
-          <p>Mountains</p>
-        </a>
-        <a href="/listings?category=Cabins" class="filter"><i class="fa-solid fa-tree"></i>
-          <p>Cabins</p>
-        </a>
-        <a href="/listings?category=City" class="filter"><i class="fa-solid fa-city"></i>
-          <p>City</p>
-        </a>
-        <a href="/listings?category=Camping" class="filter"><i class="fa-solid fa-campground"></i>
-          <p>Camping</p>
-        </a>
-        <a href="/listings?category=Pools" class="filter"><i class="fa-solid fa-person-swimming"></i>
-          <p>Pools</p>
-        </a>
-        <a href="/listings?category=Pet Friendly" class="filter"><i class="fa-solid fa-dog"></i>
-          <p>Pets</p>
-        </a>
-        <a href="/listings?category=Villas" class="filter"><i class="fa-solid fa-house-chimney"></i>
-          <p>Villas</p>
-        </a>
-        <a href="/listings?category=Castles" class="filter"><i class="fa-solid fa-chess-rook"></i>
-          <p>Castles</p>
-        </a>
-        <a href="/listings?category=Tiny Homes" class="filter"><i class="fa-solid fa-van-shuttle"></i>
-          <p>Tiny Homes</p>
-        </a>
-        <a href="/listings?category=Unique Stays" class="filter"><i class="fa-solid fa-ufo"></i>
-          <p>Unique</p>
-        </a>
+        <div class="filters-scroll" id="filtersScroll">
+          <!-- All Categories -->
+          <a href="/listings?category=Trending" class="filter"><i class="fa-solid fa-fire"></i>
+            <p>Trending</p>
+          </a>
+          <a href="/listings?category=Rooms" class="filter"><i class="fa-solid fa-bed"></i>
+            <p>Rooms</p>
+          </a>
+          <a href="/listings?category=Beach" class="filter"><i class="fa-solid fa-umbrella-beach"></i>
+            <p>Beach</p>
+          </a>
+          <a href="/listings?category=Mountains" class="filter"><i class="fa-solid fa-mountain-sun"></i>
+            <p>Mountains</p>
+          </a>
+          <a href="/listings?category=Castles" class="filter"><i class="fa-solid fa-chess-rook"></i>
+            <p>Castles</p>
+          </a>
+          <a href="/listings?category=Pools" class="filter"><i class="fa-solid fa-person-swimming"></i>
+            <p>Pools</p>
+          </a>
+          <a href="/listings?category=Camping" class="filter"><i class="fa-solid fa-campground"></i>
+            <p>Camping</p>
+          </a>
+          <a href="/listings?category=Farms" class="filter"><i class="fa-solid fa-cow"></i>
+            <p>Farms</p>
+          </a>
+          <a href="/listings?category=Arctic" class="filter"><i class="fa-solid fa-snowflake"></i>
+            <p>Arctic</p>
+          </a>
+          <a href="/listings?category=Domes" class="filter"><i class="fa-solid fa-igloo"></i>
+            <p>Domes</p>
+          </a>
+          <a href="/listings?category=Boats" class="filter"><i class="fa-solid fa-ship"></i>
+            <p>Boats</p>
+          </a>
+        </div>
+
+        <button class="scroll-btn right-btn d-none d-md-flex ms-2 shadow-sm" onclick="scrollFilters(1)"><i
+            class="fa-solid fa-angle-right"></i></button>
       </div>
 
-      <button class="scroll-btn right-btn d-none d-md-flex ms-2" onclick="scrollFilters(1)"><i
-          class="fa-solid fa-angle-right"></i></button>
+      <!-- Tax Toggle (Right Side) -->
+      <div
+        class="tax-toggle-box ms-3 d-none d-md-flex align-items-center border rounded-pill px-3 py-2 shadow-sm bg-white">
+        <div class="form-check form-switch form-check-reverse mb-0">
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+          <label class="form-check-label text-nowrap" for="flexSwitchCheckDefault"
+            style="font-size: 0.9rem; font-weight: 500;">Display total before taxes</label>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Tax Toggle (Optional: Positioned Top Right or Bottom Fixed. Let's keep simpler for now or hide if clutter) -->
-  <!-- Simplified: Display toggle in a clean row if needed. For visual balance, maybe omit or place neatly. -->
-  <!-- Placing it inline or below filters is common. -->
-
-
-  <div class="container mt-2">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+  <!-- Listings Grid -->
+  <div class="container-fluid px-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 card-container">
       <% if (allListings && allListings.length> 0) { %>
         <% for (let listing of allListings) { %>
           <div class="col">
             <div class="listing-card">
               <a href="/listings/<%= listing._id %>">
-                <img src="<%= listing.image.url || '/images/default.jpg' %>" class="card-img-top"
-                  alt="<%= listing.title %>" />
+                <img src="<%= (listing.image && listing.image.url) ? listing.image.url : '/images/default.jpg' %>"
+                  class="card-img-top" alt="<%= listing.title %>" />
                 <div class="card-body">
                   <div class="title-line">
                     <%= listing.title %>

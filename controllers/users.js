@@ -1,10 +1,10 @@
-const User=require('../models/user');
+const User = require('../models/user');
 
-module.exports.renderSignupForm=(req, res) => {
+module.exports.renderSignupForm = (req, res) => {
     res.render("users/signup.ejs");
 };
 
-module.exports.signup = async(req, res, next) => { // 'next' is important
+module.exports.signup = async (req, res, next) => { // 'next' is important
     try {
         let { username, email, password } = req.body;
         const newUser = new User({ email, username });
@@ -38,7 +38,7 @@ module.exports.login = (req, res) => {
 };
 
 
-module.exports.logout= (req, res, next) => {
+module.exports.logout = (req, res, next) => {
     req.logout(function (err) {
         if (err) {
             return next(err);  // agar logout me error aaye
@@ -49,3 +49,13 @@ module.exports.logout= (req, res, next) => {
 };
 
 
+
+module.exports.renderProfile = async (req, res) => {
+    // Assuming you have a way to get user listings. If not, we might need to import Listing model.
+    // Let's import Listing at top if not present, but for now assuming it's needed.
+    // Wait, Listing is not imported in users.js. I should fix that first.
+    // Actually, let's just do it here.
+    const Listing = require('../models/listing');
+    const listings = await Listing.find({ owner: req.user._id });
+    res.render("users/profile.ejs", { user: req.user, listings });
+};

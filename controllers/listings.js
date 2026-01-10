@@ -1,7 +1,8 @@
 const Listing = require('../models/listing')
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const mapToken = process.env.MAP_TOCKEN;
-const geocodingClient = mbxGeocoding({ accessToken: mapToken });
+const mapToken = process.env.MAP_TOCKEN || process.env.MAP_TOKEN; // Fallback for typo correction
+if (!mapToken) console.error("FATAL: MAP_TOKEN is missing in environment variables!");
+const geocodingClient = mbxGeocoding({ accessToken: mapToken || 'pk.dummy' }); // Prevent server crash on init, though map calls will fail
 
 module.exports.index = async (req, res) => {
   const { search, category } = req.query;

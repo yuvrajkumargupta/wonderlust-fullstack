@@ -1,17 +1,51 @@
-<% layout("layouts/boilerplate") %>
-<div class="profile-card">
-
-  <div class="profile-header">
-    <h2><%= user.username %></h2>
+<% layout("/layouts/boilerplate") %>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <div class="card shadow-sm p-4 mb-4">
+          <div class="profile-img mb-3">
+            <i class="fa-solid fa-circle-user fa-6x text-secondary"></i>
+          </div>
+          <h3 class="mb-2">
+            <%= user.username %>
+          </h3>
+          <p class="text-muted">
+            <%= user.email %>
+          </p>
+          <div class="d-grid gap-2">
+            <a href="/listings/new" class="btn btn-primary rounded-pill">Host a new place</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h3 class="mb-4">My Listings</h3>
+        <% if(listings && listings.length> 0) { %>
+          <div class="row row-cols-1 row-cols-md-2 g-4">
+            <% for(let listing of listings) { %>
+              <div class="col">
+                <div class="card h-100 shadow-sm listing-card">
+                  <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark">
+                    <img src="<%= (listing.image && listing.image.url) ? listing.image.url : '/images/default.jpg' %>"
+                      class="card-img-top" alt="<%= listing.title %>" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <%= listing.title %>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <%= listing.location %>, <%= listing.country %>
+                      </p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <% } %>
+          </div>
+          <% } else { %>
+            <div class="alert alert-light text-center" role="alert">
+              <i class="fa-solid fa-house mb-3 fa-2x text-muted"></i>
+              <p>No listings found. Start hosting today!</p>
+            </div>
+            <% } %>
+      </div>
+    </div>
   </div>
-  <!-- Profile Details -->
-  <div class="profile-details">
-    <p><strong>Email:</strong> <%= user.email %></p>
-  </div>
-
-  <!-- Edit / Logout Buttons -->
-  <div class="profile-actions">
-    <a href="#" class="btn-create">Edit Profile</a>
-    <a href="/logout" class="btn-danger">Logout</a>
-  </div>
-</div>
