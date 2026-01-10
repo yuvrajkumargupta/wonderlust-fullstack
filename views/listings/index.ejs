@@ -1,23 +1,40 @@
 <% layout("/layouts/boilerplate") %>
 <div class="container mt-4">
 
-  <div class="filters-wrapper">
-  <button class="scroll-btn left-btn d-none d-md-flex">&laquo;</button>
-  <div class="filters-scroll">
-    <div class="filter"><i class="fa-solid fa-fire"></i><p>Trending</p></div>
-    <div class="filter"><i class="fa-solid fa-bed"></i><p>Rooms</p></div>
-    <div class="filter"><i class="fa-solid fa-umbrella-beach"></i><p>Beach</p></div>
-    <div class="filter"><i class="fa-solid fa-mountain-sun"></i><p>Mountains</p></div>
-    <div class="filter"><i class="fa-solid fa-tree"></i><p>Cabins</p></div>
-    <div class="filter"><i class="fa-solid fa-city"></i><p>City</p></div>
-    <div class="filter"><i class="fa-solid fa-campground"></i><p>Camping</p></div>
-    <div class="filter"><i class="fa-solid fa-person-swimming"></i><p>Pools</p></div>
-    <div class="filter"><i class="fa-solid fa-dog"></i><p>Pet Friendly</p></div>
-    <div class="filter"><i class="fa-solid fa-house-chimney"></i><p>Villas</p></div>
-    <div class="filter"><i class="fa-solid fa-chess-rook"></i><p>Castles</p></div>
-    <div class="filter"><i class="fa-solid fa-van-shuttle"></i><p>Tiny Homes</p></div>
+  <!-- Search Bar for Mobile/Desktop -->
+  <div class="search-container mb-4 d-flex justify-content-center">
+    <form action="/listings" method="GET" class="search-bar">
+        <input type="text" name="search" placeholder="Search destinations..." value="">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
   </div>
-  <button class="scroll-btn right-btn d-none d-md-flex">&raquo;</button>
+
+  <div class="filters-wrapper">
+  <button class="scroll-btn left-btn d-none d-md-flex" onclick="scrollFilters(-1)">&laquo;</button>
+  <div class="filters-scroll" id="filtersScroll">
+    <a href="/listings?category=Trending" class="filter"><i class="fa-solid fa-fire"></i><p>Trending</p></a>
+    <a href="/listings?category=Rooms" class="filter"><i class="fa-solid fa-bed"></i><p>Rooms</p></a>
+    <a href="/listings?category=Beach" class="filter"><i class="fa-solid fa-umbrella-beach"></i><p>Beach</p></a>
+    <a href="/listings?category=Mountains" class="filter"><i class="fa-solid fa-mountain-sun"></i><p>Mountains</p></a>
+    <a href="/listings?category=Cabins" class="filter"><i class="fa-solid fa-tree"></i><p>Cabins</p></a>
+    <a href="/listings?category=City" class="filter"><i class="fa-solid fa-city"></i><p>City</p></a>
+    <a href="/listings?category=Camping" class="filter"><i class="fa-solid fa-campground"></i><p>Camping</p></a>
+    <a href="/listings?category=Pools" class="filter"><i class="fa-solid fa-person-swimming"></i><p>Pools</p></a>
+    <a href="/listings?category=Pet Friendly" class="filter"><i class="fa-solid fa-dog"></i><p>Pets</p></a>
+    <a href="/listings?category=Villas" class="filter"><i class="fa-solid fa-house-chimney"></i><p>Villas</p></a>
+    <a href="/listings?category=Castles" class="filter"><i class="fa-solid fa-chess-rook"></i><p>Castles</p></a>
+    <a href="/listings?category=Tiny Homes" class="filter"><i class="fa-solid fa-van-shuttle"></i><p>Tiny Homes</p></a>
+    <a href="/listings?category=Unique Stays" class="filter"><i class="fa-solid fa-ufo"></i><p>Unique</p></a>
+  </div>
+  <button class="scroll-btn right-btn d-none d-md-flex" onclick="scrollFilters(1)">&raquo;</button>
+
+  <script>
+      function scrollFilters(direction) {
+          const container = document.getElementById('filtersScroll');
+          const scrollAmount = 200;
+          container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+      }
+  </script>
 
 
   <div class="tax-toggle">

@@ -43,25 +43,25 @@ image: {
       required: true
     }
   },
-  // category: {
-  //   type: String,
-  //   enum: [
-  //     "Trending",
-  //     "Rooms",
-  //     "Beach",
-  //     "Mountains",
-  //     "Cabins",
-  //     "City",
-  //     "Camping",
-  //     "Pools",
-  //     "Pet Friendly",
-  //     "Villas",
-  //     "Castles",
-  //     "Tiny Homes",
-  //     "Unique Stays"
-  //   ],
-  //   default: "Trending",
-  // }
+  category: {
+    type: String,
+    enum: [
+      "Trending",
+      "Rooms",
+      "Beach",
+      "Mountains",
+      "Cabins",
+      "City",
+      "Camping",
+      "Pools",
+      "Pet Friendly",
+      "Villas",
+      "Castles",
+      "Tiny Homes",
+      "Unique Stays"
+    ],
+    default: "Trending",
+  }
 
 
 });

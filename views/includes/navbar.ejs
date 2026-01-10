@@ -3,11 +3,12 @@
 
     <!-- Brand -->
     <a class="navbar-brand fw-bold text-danger d-flex align-items-center" href="/listings">
-      <i class="fa-regular fa-compass me-2"></i> WanderStay
+      <i class="fa-regular fa-compass me-2"></i> Wanderlust
     </a>
 
     <!-- Toggler -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -22,8 +23,9 @@
       </ul>
 
       <!-- Centered Search Bar -->
-      <form class="d-flex mx-auto search-bar flex-grow-1 flex-lg-grow-0">
-        <input class="form-control border-0 shadow-none" type="search" placeholder="Where to?" aria-label="Search">
+      <form class="d-flex mx-auto search-bar flex-grow-1 flex-lg-grow-0" action="/listings" method="GET">
+        <input class="form-control border-0 shadow-none" type="search" name="search"
+          placeholder="Search destinations..." aria-label="Search">
         <button class="btn btn-danger rounded-circle ms-2" type="submit">
           <i class="fa fa-search"></i>
         </button>
@@ -48,22 +50,26 @@
               <i class="fa-solid fa-right-to-bracket me-1"></i> Log in
             </a>
           </li>
-        <% } %>
+          <% } %>
 
-        <% if(currUser) { %>
-          <!-- Logged-in User -->
-          <li class="nav-item dropdown ms-3">
-            <a class="nav-link dropdown-toggle fw-semibold d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="me-2">Hi, <%= currUser.username %> 👋</span>
-              <i class="fa-solid fa-circle-user"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-danger" href="/logout"><i class="fa-solid fa-right-from-bracket me-1"></i> Log out</a></li>
-            </ul>
-          </li>
-        <% } %>
+            <% if(currUser) { %>
+              <!-- Logged-in User -->
+              <li class="nav-item dropdown ms-3">
+                <a class="nav-link dropdown-toggle fw-semibold d-flex align-items-center" href="#" id="userDropdown"
+                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="me-2">Hi, <%= currUser.username %> 👋</span>
+                  <i class="fa-solid fa-circle-user"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item text-danger" href="/logout"><i
+                        class="fa-solid fa-right-from-bracket me-1"></i> Log out</a></li>
+                </ul>
+              </li>
+              <% } %>
       </ul>
     </div>
   </div>

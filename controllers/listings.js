@@ -1,11 +1,23 @@
-const Listing=require('../models/listing')
+const Listing = require('../models/listing')
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const mapToken= process.env.MAP_TOCKEN;
+const mapToken = process.env.MAP_TOCKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
-module.exports.index=async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("listings/index", { allListings });
+module.exports.index = async (req, res) => {
+  const { search, category } = req.query;
+  let query = {};
+  if (search) {
+    query.$or = [
+      { title: { $regex: search, $options: "i" } },
+      { location: { $regex: search, $options: "i" } },
+      { country: { $regex: search, $options: "i" } }
+    ];
+  }
+  if (category && category !== "Trending") {
+    query.category = category;
+  }
+  const allListings = await Listing.find(query);
+  res.render("listings/index", { allListings });
 }
 // Render new form
 module.exports.renderNewForm = (req, res) => {
@@ -41,7 +53,7 @@ module.exports.createListing = async (req, res) => {
         limit: 1
       })
       .send();
-      
+
 
 
     // 2. Create new listing
@@ -62,8 +74,8 @@ module.exports.createListing = async (req, res) => {
     }
 
     // 6. Save to DB
-   let saved_listing= await newListing.save();
-console.log(saved_listing);
+    let saved_listing = await newListing.save();
+    console.log(saved_listing);
     // 7. Success
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
@@ -76,21 +88,21 @@ console.log(saved_listing);
 
 
 //Ediot
-module.exports.renderEditForm=(async (req, res) => {
+module.exports.renderEditForm = (async (req, res) => {
   const listing = await Listing.findById(req.params.id);
   if (!listing) {
     req.flash("error", "Listing not found!");
     return res.redirect("/listings");
   }
 
-let originalImageUrl = listing.image.url;
-// Example: make it 300px wide, auto height, crop smart
-let smallImageUrl = originalImageUrl.replace(
-  "/upload/",
-  "/upload/w_300,h_200,c_fill/"
-);
+  let originalImageUrl = listing.image.url;
+  // Example: make it 300px wide, auto height, crop smart
+  let smallImageUrl = originalImageUrl.replace(
+    "/upload/",
+    "/upload/w_300,h_200,c_fill/"
+  );
 
-res.render("listings/edit", { listing, smallImageUrl });
+  res.render("listings/edit", { listing, smallImageUrl });
 
 
 
@@ -100,7 +112,7 @@ res.render("listings/edit", { listing, smallImageUrl });
 module.exports.UpdateListing = async (req, res) => {
   const { id } = req.params;
   const listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-  
+
   if (req.file) {
     listing.image = {
       url: req.file.path,
@@ -115,8 +127,8 @@ module.exports.UpdateListing = async (req, res) => {
 
 
 
-module.exports.destroyedListing=(async (req, res) => {
-    await Listing.findByIdAndDelete(req.params.id);
-    req.flash("success", "Listing Deleted!");
-    res.redirect("/listings");
+module.exports.destroyedListing = (async (req, res) => {
+  await Listing.findByIdAndDelete(req.params.id);
+  req.flash("success", "Listing Deleted!");
+  res.redirect("/listings");
 });
