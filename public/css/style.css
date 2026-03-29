@@ -14,16 +14,17 @@ body {
     max-width: 1400px;
 }
 
-/* Navbar */
+/* Glassmorphism Navbar */
 .navbar {
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.85); /* Increased transparency */
+    backdrop-filter: blur(20px); /* Doubled blur effect */
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); /* sharper, cleaner line */
     transition: all 0.3s ease;
     position: sticky;
     top: 0;
     z-index: 1000;
-    padding: 1rem 0;
+    padding: 0.75rem 0; /* slightly thinner */
 }
 
 .navbar-brand {
@@ -98,80 +99,85 @@ body {
     background: #e30404;
 }
 
-/* Listing Cards */
+/* Listing Cards Redesign */
 .listing-card {
     border: none;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background-color: #fff;
+    background-color: transparent;
+    transition: transform 0.2s ease-in-out;
     display: flex;
     flex-direction: column;
     height: 100%;
     position: relative;
+    cursor: pointer;
 }
 
 .listing-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: translateY(-4px);
 }
 
 .listing-card a {
     text-decoration: none;
     color: inherit;
+    z-index: 1;
+}
+
+/* Perfect Aspect Ratio Square (like Airbnb) */
+.img-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
 }
 
 .card-img-top {
     width: 100%;
-    height: 250px;
-    /* Taller images */
+    height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
 }
 
 .listing-card:hover .card-img-top {
-    transform: scale(1.03);
+    transform: scale(1.05);
+}
+
+/* Wishlist Heart Overlay */
+.wishlist-heart {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 1.5rem;
+    z-index: 10;
+    transition: all 0.2s;
+    -webkit-text-stroke: 1.5px white;
+}
+
+.wishlist-heart:hover {
+    color: #ff385c;
+    transform: scale(1.1);
+    -webkit-text-stroke: 1px transparent;
 }
 
 .card-body {
-    padding: 1.25rem;
+    padding: 0.75rem 0 0 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
-.card-text b {
-    font-size: 1.15rem;
-    display: block;
-    margin-bottom: 0.25rem;
-    color: #1a202c;
+.title-line {
+    font-weight: 600;
+    color: #222;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 2px;
 }
 
 .card-text {
     font-weight: 500;
-    font-size: 1rem;
-    color: #4a5568;
+    color: #717171;
     line-height: 1.5;
-}
-
-.price-tag {
-    font-weight: 700;
-    color: #1a202c;
-    font-size: 1.1rem;
-}
-
-.card-img-overlay {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 40%);
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.listing-card:hover .card-img-overlay {
-    opacity: 1;
 }
 
 
@@ -180,18 +186,18 @@ body {
 .filters-main-container {
     width: 100%;
     position: sticky;
-    top: 80px;
-    /* Adjust based on navbar height */
+    top: 72px; /* Hugging navbar */
     z-index: 900;
-    background-color: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    /* Subtle shadow line */
-    padding: 1rem 0;
-    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 255, 0.95); /* frosted effect continues */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    /* removed massive drop shadow to keep things flat and premium */
+    padding: 1.5rem 0 0.5rem 0;
+    margin-bottom: 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid #ebebeb; /* Crisp borderline */
 }
 
 /* Scrollable Container */
@@ -211,10 +217,10 @@ body {
 
 .filters-scroll {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
     overflow-x: auto;
     scroll-behavior: smooth;
-    padding: 0.5rem 0;
+    padding: 0.5rem 0 0 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -224,44 +230,46 @@ body {
 }
 
 .filter {
-    text-align: center;
-    opacity: 0.6;
+    opacity: 0.65;
     transition: all 0.2s ease;
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: none !important;
     color: #717171;
     flex-shrink: 0;
-    min-width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    /* Space between icon and text */
+    gap: 8px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid transparent;
 }
 
 .filter i {
-    font-size: 1.5rem;
-    color: #444;
+    font-size: 1.6rem;
+    color: #717171;
+    transition: color 0.2s ease;
 }
 
 .filter p {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
     margin: 0;
-    color: #666;
+    color: #717171;
+    transition: color 0.2s ease;
 }
 
-.filter:hover,
+.filter:hover {
+    opacity: 1;
+    border-bottom: 2px solid #ddd;
+}
+
 .filter.active {
     opacity: 1;
-    color: #000;
-    /* Airbnb style hover border */
-    border-bottom: 2px solid #333;
-    /* Visual indicator */
+    border-bottom: 2px solid #000;
 }
 
-.filter:hover p,
-.filter.active p {
+.filter:hover p, .filter:hover i,
+.filter.active p, .filter.active i {
     color: #000;
 }
 
@@ -439,3 +447,4 @@ footer {
         gap: 1.5rem;
     }
 }
+

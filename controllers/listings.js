@@ -5,7 +5,10 @@ if (!mapToken) console.error("FATAL: MAP_TOKEN is missing in environment variabl
 const geocodingClient = mbxGeocoding({ accessToken: mapToken || 'pk.dummy' }); // Prevent server crash on init, though map calls will fail
 
 module.exports.index = async (req, res) => {
-  const { search, category } = req.query;
+  const { search, category, sort, page = 1 } = req.query;
+  const limit = 12; // Items per page
+  const skip = (page - 1) * limit;
+
   let query = {};
   if (search) {
     query.$or = [
@@ -17,8 +20,34 @@ module.exports.index = async (req, res) => {
   if (category && category !== "Trending") {
     query.category = category;
   }
-  const allListings = await Listing.find(query);
-  res.render("listings/index", { allListings });
+
+  // Determine sort options
+  let sortOption = {};
+  if (sort === "priceAsc") {
+    sortOption.price = 1;
+  } else if (sort === "priceDesc") {
+    sortOption.price = -1;
+  } else {
+    sortOption._id = -1; // Default: newest first
+  }
+
+  // Execute query with pagination and sorting
+  const totalListings = await Listing.countDocuments(query);
+  const totalPages = Math.ceil(totalListings / limit) || 1;
+  
+  const allListings = await Listing.find(query)
+    .sort(sortOption)
+    .skip(skip)
+    .limit(limit);
+
+  res.render("listings/index", { 
+    allListings, 
+    currentPage: parseInt(page), 
+    totalPages,
+    search: search || "",
+    category: category || "Trending",
+    sort: sort || ""
+  });
 }
 // Render new form
 module.exports.renderNewForm = (req, res) => {

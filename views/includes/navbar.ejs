@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top border-bottom">
   <div class="container-fluid">
 
     <!-- Brand -->
@@ -26,7 +26,7 @@
       <!-- Centered Search Bar -->
       <form class="d-flex mx-auto search-bar flex-grow-1 flex-lg-grow-0" action="/listings" method="GET">
         <input class="form-control border-0 shadow-none" type="search" name="search"
-          placeholder="Search destinations..." aria-label="Search">
+          placeholder="Search destinations..." aria-label="Search" value="<%= typeof search !== 'undefined' ? search : '' %>">
         <button class="btn btn-danger rounded-circle ms-2" type="submit">
           <i class="fa fa-search"></i>
         </button>

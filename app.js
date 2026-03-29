@@ -32,6 +32,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const bookingsRouter = require("./routes/booking.js");
 
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
@@ -87,6 +88,7 @@ app.use((req, res, next) => {
 
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
+app.use("/listings/:id/bookings", bookingsRouter);
 app.use("/", userRouter);
 
 

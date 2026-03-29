@@ -14,53 +14,48 @@
 
         <div class="filters-scroll" id="filtersScroll">
           <!-- All Categories -->
-          <a href="/listings?category=Trending" class="filter"><i class="fa-solid fa-fire"></i>
-            <p>Trending</p>
-          </a>
-          <a href="/listings?category=Rooms" class="filter"><i class="fa-solid fa-bed"></i>
-            <p>Rooms</p>
-          </a>
-          <a href="/listings?category=Beach" class="filter"><i class="fa-solid fa-umbrella-beach"></i>
-            <p>Beach</p>
-          </a>
-          <a href="/listings?category=Mountains" class="filter"><i class="fa-solid fa-mountain-sun"></i>
-            <p>Mountains</p>
-          </a>
-          <a href="/listings?category=Castles" class="filter"><i class="fa-solid fa-chess-rook"></i>
-            <p>Castles</p>
-          </a>
-          <a href="/listings?category=Pools" class="filter"><i class="fa-solid fa-person-swimming"></i>
-            <p>Pools</p>
-          </a>
-          <a href="/listings?category=Camping" class="filter"><i class="fa-solid fa-campground"></i>
-            <p>Camping</p>
-          </a>
-          <a href="/listings?category=Farms" class="filter"><i class="fa-solid fa-cow"></i>
-            <p>Farms</p>
-          </a>
-          <a href="/listings?category=Arctic" class="filter"><i class="fa-solid fa-snowflake"></i>
-            <p>Arctic</p>
-          </a>
-          <a href="/listings?category=Domes" class="filter"><i class="fa-solid fa-igloo"></i>
-            <p>Domes</p>
-          </a>
-          <a href="/listings?category=Boats" class="filter"><i class="fa-solid fa-ship"></i>
-            <p>Boats</p>
-          </a>
+          <% 
+            const cats = [
+              { id: "Trending", icon: "fa-fire" },
+              { id: "Rooms", icon: "fa-bed" },
+              { id: "Beach", icon: "fa-umbrella-beach" },
+              { id: "Mountains", icon: "fa-mountain-sun" },
+              { id: "Castles", icon: "fa-chess-rook" },
+              { id: "Pools", icon: "fa-person-swimming" },
+              { id: "Camping", icon: "fa-campground" },
+              { id: "Farms", icon: "fa-cow" },
+              { id: "Arctic", icon: "fa-snowflake" },
+              { id: "Domes", icon: "fa-igloo" },
+              { id: "Boats", icon: "fa-ship" }
+            ];
+          %>
+          <% for( let c of cats ) { %>
+            <a href="/listings?category=<%= c.id %><%= search ? '&search=' + search : '' %><%= sort ? '&sort=' + sort : '' %>" class="filter <%= category === c.id ? 'active' : '' %>">
+              <i class="fa-solid <%= c.icon %>"></i>
+              <p><%= c.id %></p>
+            </a>
+          <% } %>
         </div>
 
         <button class="scroll-btn right-btn d-none d-md-flex ms-2 shadow-sm" onclick="scrollFilters(1)"><i
             class="fa-solid fa-angle-right"></i></button>
       </div>
 
-      <!-- Tax Toggle (Right Side) -->
-      <div
-        class="tax-toggle-box ms-3 d-none d-md-flex align-items-center border rounded-pill px-3 py-2 shadow-sm bg-white">
-        <div class="form-check form-switch form-check-reverse mb-0">
-          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-          <label class="form-check-label text-nowrap" for="flexSwitchCheckDefault"
-            style="font-size: 0.9rem; font-weight: 500;">Display total before taxes</label>
+      <div class="d-flex align-items-center ms-auto">
+        <!-- Sort Dropdown -->
+        <div class="dropdown me-3 d-none d-md-flex">
+          <button class="btn btn-outline-secondary dropdown-toggle rounded-pill" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 0.9rem; font-weight: 500;">
+            <i class="fa-solid fa-sort"></i> Sort 
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="sortDropdown">
+            <li><a class="dropdown-item <%= sort === 'priceAsc' ? 'active bg-danger border-danger' : '' %>" href="/listings?page=1<%= search ? '&search=' + search : '' %><%= category ? '&category=' + category : '' %>&sort=priceAsc">Price: Low to High</a></li>
+            <li><a class="dropdown-item <%= sort === 'priceDesc' ? 'active bg-danger border-danger' : '' %>" href="/listings?page=1<%= search ? '&search=' + search : '' %><%= category ? '&category=' + category : '' %>&sort=priceDesc">Price: High to Low</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item <%= !sort ? 'active bg-danger border-danger' : '' %>" href="/listings?page=1<%= search ? '&search=' + search : '' %><%= category ? '&category=' + category : '' %>">Newest First</a></li>
+          </ul>
         </div>
+
+
       </div>
 
     </div>
@@ -69,40 +64,78 @@
   <!-- Listings Grid -->
   <div class="container-fluid px-4">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 card-container">
-      <% if (allListings && allListings.length> 0) { %>
+      <% if (allListings && allListings.length > 0) { %>
         <% for (let listing of allListings) { %>
           <div class="col">
             <div class="listing-card">
-              <a href="/listings/<%= listing._id %>">
+              <a href="/listings/<%= listing._id %>" class="stretched-link"></a>
+              <i class="fa-solid fa-heart wishlist-heart"></i>
+              <div class="img-wrapper shadow-sm">
                 <img src="<%= (listing.image && listing.image.url) ? listing.image.url : '/images/default.jpg' %>"
                   class="card-img-top" alt="<%= listing.title %>" />
-                <div class="card-body">
-                  <div class="title-line">
-                    <%= listing.title %>
-                  </div>
-                  <div class="text-secondary" style="font-size: 0.9rem;">
-                    <%= listing.location %>, <%= listing.country %>
-                  </div>
-                  <div class="price-line">
-                    <b>₹<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %></b> <span
-                      class="fw-normal text-secondary">night</span>
-                  </div>
+              </div>
+              <div class="card-body">
+                <div class="title-line fw-bold text-dark fs-6">
+                  <%= listing.location %>, <%= listing.country %>
                 </div>
-              </a>
-            </div>
-          </div>
-          <% } %>
-            <% } else { %>
-              <div class="col-12">
-                <div class="empty-state d-flex flex-column align-items-center justify-content-center">
-                  <i class="fa-regular fa-face-frown-open empty-icon"></i>
-                  <h3>No matches found</h3>
-                  <p class="text-secondary">Try changing your search or category filter.</p>
-                  <a href="/listings" class="btn btn-outline-dark mt-3 rounded-pill px-4">Clear Filters</a>
+                <div class="text-secondary mb-1" style="font-size: 0.95rem;">
+                  <%= listing.title %>
+                </div>
+                <div class="price-line text-dark mt-1">
+                  <span class="fw-bold fs-6">₹<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %></span> <span class="fw-normal text-secondary">night</span>
                 </div>
               </div>
-              <% } %>
+            </div>
+          </div>
+        <% } %>
+            <% } else { %>
+              <div class="col-12 w-100">
+                <div class="empty-state d-flex flex-column align-items-center justify-content-center p-5 shadow-sm border-0 bg-white" style="border-radius: 24px;">
+                  <i class="fa-solid fa-map-location-dot text-secondary mb-3" style="font-size: 3rem; opacity: 0.6;"></i>
+                  <h3 class="fw-bold mb-2">No exact matches</h3>
+                  <p class="text-secondary fs-5 mb-4">Try changing or removing some of your filters or adjusting your search area.</p>
+                  <a href="/listings" class="btn btn-outline-dark btn-lg rounded-pill px-5 fw-bold hover-btn">Clear all filters</a>
+                </div>
+              </div>
+            <% } %>
     </div>
+
+    <!-- Pagination -->
+    <% if (totalPages > 1) { %>
+      <div class="d-flex justify-content-center mt-5 mb-4">
+        <nav aria-label="Page navigation">
+          <ul class="pagination pagination-md">
+            <!-- Previous Button -->
+            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+              <a class="page-link text-danger" href="/listings?page=<%= currentPage - 1 %><%= search ? '&search=' + search : '' %><%= category ? '&category=' + category : '' %><%= sort ? '&sort=' + sort : '' %>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            
+            <!-- Page Numbers -->
+            <% 
+              // Simple pagination logic to show limited pages
+              let startPage = Math.max(1, currentPage - 2);
+              let endPage = Math.min(totalPages, currentPage + 2);
+            %>
+            
+            <% for( let i = startPage; i <= endPage; i++ ) { %>
+              <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                <a class="page-link <%= currentPage === i ? 'bg-danger border-danger text-white' : 'text-danger' %>" href="/listings?page=<%= i %><%= search ? '&search=' + search : '' %><%= category ? '&category=' + category : '' %><%= sort ? '&sort=' + sort : '' %>"><%= i %></a>
+              </li>
+            <% } %>
+
+            <!-- Next Button -->
+            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+              <a class="page-link text-danger" href="/listings?page=<%= currentPage + 1 %><%= search ? '&search=' + search : '' %><%= category ? '&category=' + category : '' %><%= sort ? '&sort=' + sort : '' %>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    <% } %>
+
   </div>
 
   <script>

@@ -1,7 +1,7 @@
 <% layout("/layouts/boilerplate") %>
   <script>
     const mapToken = "<%= process.env.MAP_TOKEN || process.env.MAP_TOCKEN %>";
-    const listing = <% - JSON.stringify(listing) %>;
+    const listing = <%- JSON.stringify(listing) %>;
   </script>
 
   <div class="container listing-details">
@@ -11,22 +11,54 @@
       <%= listing.title %>
     </h2>
 
-    <!-- Listing Card -->
-    <div class="listing-card shadow-sm mb-5 mx-auto">
-      <img src="<%= listing.image.url %>" class="listing-image card-img-top" alt="Listing image">
-      <div class="card-body">
-        <p class="card-owner mb-2">Owned by <strong>
-            <%= listing.owner ? listing.owner.username : 'Unknown Owner' %>
-          </strong></p>
-        <p class="card-text mb-2">
-          <%= listing.description %>
-        </p>
-        <p class="card-text mb-1"><strong>Price:</strong> ₹<%= listing.price ? listing.price.toLocaleString("en-IN")
-            : "N/A" %>
-        </p>
-        <p class="card-text"><strong>Location:</strong>
-          <%= listing.location %>, <%= listing.country %>
-        </p>
+    <!-- Listing Layout Structure -->
+    <div class="row">
+      <!-- Left Column: Listing Details -->
+      <div class="col-md-8 col-12 pe-md-4">
+        <div class="card shadow-sm mb-5 border-0" style="border-radius: 12px; overflow: hidden;">
+          <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing image" style="height: 450px; object-fit: cover;">
+          <div class="card-body p-4">
+            <h5 class="fw-bold mb-3">Entire place hosted by <%= listing.owner ? listing.owner.username : 'Unknown Owner' %></h5>
+            <p class="card-text text-muted mb-4" style="line-height: 1.8; font-size: 1.05rem;">
+              <%= listing.description %>
+            </p>
+            <hr class="my-4">
+            <p class="card-text mb-2"><strong class="fs-5">Location</strong></p>
+            <p class="text-muted"><i class="fa-solid fa-location-dot me-2 text-danger"></i> <%= listing.location %>, <%= listing.country %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Booking Widget -->
+      <div class="col-md-4 col-12 mb-5">
+        <div class="card shadow-sm border-0 sticky-top" style="top: 100px; border-radius: 12px;">
+          <div class="card-body p-4">
+            <h4 class="card-title mb-4">Book your stay</h4>
+            <p class="text-muted"><span class="fs-5 fw-bold text-dark">₹<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %></span> night</p>
+            <hr>
+            <form action="/listings/<%= listing._id %>/bookings" method="POST" class="needs-validation" novalidate>
+              <div class="row g-2 mb-3">
+                <div class="col-6">
+                  <label for="checkIn" class="form-label small fw-bold">CHECK-IN</label>
+                  <input type="date" class="form-control" id="checkIn" name="checkIn" required>
+                </div>
+                <div class="col-6">
+                  <label for="checkOut" class="form-label small fw-bold">CHECKOUT</label>
+                  <input type="date" class="form-control" id="checkOut" name="checkOut" required>
+                </div>
+              </div>
+              
+              <% if(!currUser) { %>
+                <a href="/login" class="btn btn-danger w-100 py-3 rounded-3 fw-bold mt-3">Log in to Reserve</a>
+              <% } else if (currUser && listing.owner && listing.owner._id.equals(currUser._id)) { %>
+                <button type="button" class="btn btn-secondary w-100 py-3 rounded-3 fw-bold mt-3" disabled>You own this property</button>
+              <% } else { %>
+                <button type="submit" class="btn btn-danger w-100 py-3 rounded-3 fw-bold mt-3 hover-btn">Reserve Now</button>
+              <% } %>
+            </form>
+            <p class="text-center text-muted small mt-3 mb-0">You won't be charged yet</p>
+          </div>
+        </div>
       </div>
     </div>
 

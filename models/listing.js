@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { listingSchema } = require("../schema"); // (only needed if you’re using Joi validation)
 const Review = require("./review");
+const Booking = require("./booking");
 const Schema = mongoose.Schema;
 
 const ListingSchema = new Schema({
@@ -26,6 +27,12 @@ image: {
     {
       type: Schema.Types.ObjectId,
       ref: "Review",
+    },
+  ],
+  bookings: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Booking",
     },
   ],
   owner : {
@@ -72,6 +79,11 @@ ListingSchema.post("findOneAndDelete", async function (listing) {
     await Review.deleteMany({
       _id: { $in: listing.reviews },
     });
+    if (listing.bookings && listing.bookings.length) {
+      await Booking.deleteMany({
+        _id: { $in: listing.bookings },
+      });
+    }
   }
 });
 
